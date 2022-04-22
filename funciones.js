@@ -37,7 +37,7 @@ const crearTarea = (parentNode, tarea, db) => {
   divEdityDelete.appendChild(aDelete)
   
   parentNode.appendChild(divTarea);
- 
+
   aDelete.onclick = () => {
     db.removeItem(tarea.id)
     divTarea.remove();
