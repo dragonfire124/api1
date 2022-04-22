@@ -1,10 +1,10 @@
-const logErrors = (err, next) => {
+const logErrors = (err, req, res, next) => {
     console.log("Ha ocurrido un error");
     console.log(err);
     next(err);
 }
 
-const errorHandler = (err, res) => {
+const errorHandler = (err, req, res, next) => {
     const { message } = err;
     res.status(500).json({ success: false, message });
 }
