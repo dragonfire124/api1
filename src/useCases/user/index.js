@@ -5,6 +5,10 @@ const getById = async (id) => {
     return await User.findById(id).exec();
 };
 
+const getByUsername = async (username) => {
+    return await User.findOne({ username }).exec();
+};
+
 const authenticate = async (user, password) => {
     const hash = user.password;
     return await encrypt.verifyPassword(password, hash);
@@ -18,6 +22,7 @@ const create = async (username, password) => {
 
 module.exports = {
     getById,
+    getByUsername,
     authenticate,
     create,
 };
