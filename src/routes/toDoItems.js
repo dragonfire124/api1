@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const toDoItem = require('../useCases/toDoItem');
-const { authHandler } = require('../middleware/authHandler');
+const toDoItem = require('../useCases/toDoItems');
+// const { authHandler } = require('../middleware/authHandler');
 
 router.get("/", async (req, res, next) => {
     try {
@@ -28,10 +28,10 @@ router.get("/:id", async (req, res, next) => {
     };
 });
 
-router.post("/", authHandler, async (req, res, next) => {
+router.post("/", async (req, res, next) => {
     try {
         const { description } = req.body;
-        const toDoItemCreated = await toDoItem.create(description);
+        const toDoItemCreated = await toDoItem.create({description});
         res.json({
             success: true,
             message: "ToDoItem creado",
@@ -42,11 +42,11 @@ router.post("/", authHandler, async (req, res, next) => {
     };
 });
 
-router.put("/", authHandler, async (req, res, next) => {
+router.put("/:id", async (req, res, next) => {
     try {
         const { id } = req.params;
         const { description } = req.body;
-        const toDoItemUpdated = await toDoItem.update(id, description);
+        const toDoItemUpdated = await toDoItem.update(id, {description});
         res.json({
             success: true,
             message: `ToDoItem ${id} actualizado`,
@@ -57,7 +57,7 @@ router.put("/", authHandler, async (req, res, next) => {
     };
 });
 
-router.delete("/:id", authHandler, async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
     try {
         const { id } = req.params;
         const toDoItemDeleted = await toDoItem.delete(id);

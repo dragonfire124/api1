@@ -1,4 +1,4 @@
-const toDoItem = require("../../models/toDoItem").model;
+const ToDoItem = require("../../models/toDoItem").model;
 
 const getAll = async () => {
     return await toDoItem.find({}).exec();
@@ -10,7 +10,7 @@ const getByWord = async (word) => {
 };
 
 const create = async (description) => {
-    const toDoItem = new toDoItem({ description });
+    const toDoItem = new ToDoItem(description);
     return await toDoItem.save();
 };
 

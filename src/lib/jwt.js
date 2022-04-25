@@ -3,7 +3,7 @@ const config = require('./config');
 
 const sign = async (payload) => {
     return await jsonwebtoken.sign(payload, config.app.jwtSecret, {
-        expiresIn: '1d',
+        expiresIn: '1h',
     });
 };
 

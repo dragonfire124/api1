@@ -1,9 +1,21 @@
 const express = require('express');
+const { authHandler } = require('../middleware/authHandler');
 const user = require('../useCases/user');
 const router = express.Router();
 
-router.get("/", (req, res) => {
-    res.json({message: "Estos son todos los usuarios"});
+// router.use(authHandler);
+
+router.get("/", async (req, res, next) => {
+    try {
+        const users = await user.getAll();
+        res.json({
+            success: true,
+            message: "Estos son todos los usuarios",
+            payload: users,
+        });
+    } catch (error) {
+        next(error);
+    };
 });
 
 router.get("/:id", async (req, res, next) => {
@@ -46,7 +58,12 @@ router.put("/:id", async (req, res, next) => {
 router.delete("/:id", async (req, res, next) => {
     try {
         const { id } = req.params;
-        res.json({ message: `Usuario ${id} eliminado` })
+        const userDeleted = await user.del(id);
+        res.json({
+            success: true, 
+            message: `Usuario ${id} eliminado`,
+            payload: userDeleted,
+        });
     } catch (error) {
         next(error);
     };
