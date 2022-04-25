@@ -46,7 +46,7 @@ router.put("/:id", async (req, res, next) => {
     try {
         const { id } = req.params;
         const { description } = req.body;
-        const toDoItemUpdated = await toDoItem.update(id, {description});
+        const toDoItemUpdated = await toDoItem.update(id, description);
         res.json({
             success: true,
             message: `ToDoItem ${id} actualizado`,
@@ -60,7 +60,7 @@ router.put("/:id", async (req, res, next) => {
 router.delete("/:id", async (req, res, next) => {
     try {
         const { id } = req.params;
-        const toDoItemDeleted = await toDoItem.delete(id);
+        const toDoItemDeleted = await toDoItem.del(id);
         res.json({
             success: true,
             message: `ToDoItem ${id} eliminado`,
