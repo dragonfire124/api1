@@ -1,29 +1,29 @@
-const toDoItem = require("../../models/toDoItem").model;
+const ToDoItem = require("../../models/toDoItem").model;
 
 const getAll = async () => {
-    return await toDoItem.find({}).exec();
+    return await ToDoItem.find({}).exec();
 };
 
 const getByWord = async (word) => {
-    const toDoItem = await toDoItem.findByOne({ description: word }).exec();
+    const toDoItem = await ToDoItem.findByOne({ description: word }).exec();
     return toDoItem;
 };
 
 const create = async (description) => {
-    const toDoItem = new toDoItem({ description });
+    const toDoItem = new ToDoItem(description);
     return await toDoItem.save();
 };
 
 const update = async (id, description) => {
-    const toDoItem = await toDoItem.findByIdAndUpdate(id, 
+    const toDoItem = await ToDoItem.findByIdAndUpdate(id, 
         { description },
         { new: true }
-    ).excec();
+    ).exec();
     return toDoItem;
 };
 
 const del = async (id) => {
-    return await toDoItem.findByIdAndDelete(id).exec();
+    return await ToDoItem.findByIdAndDelete(id).exec();
 };
 
 module.exports = {
